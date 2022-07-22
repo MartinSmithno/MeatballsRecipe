@@ -1,8 +1,11 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var prepTime: Int = 10
-    @State var cookTime: Int = 20
+    @State private var prepTime: Int = 10
+    @State private var cookTime: Int = 20
+    @State private var food: String = "Meatball"
+    
+    @State private var openNewPage: Bool = false
     
     var body: some View {
         
@@ -14,7 +17,7 @@ struct ContentView: View {
                 
                 VStack(alignment: .leading){
                     
-                    Text("Meatball")
+                    Text("\(food)")
                         .font(.largeTitle)
                         .foregroundColor(.red)
                     
@@ -62,20 +65,48 @@ struct ContentView: View {
                     }
                     Button(action:{
                         print("Clicked on Rate")
+                        self.openNewPage = true
                     }){
                         Text("Rate ").frame(width: geometry.size.width/2, height: 40, alignment: .center).background(.orange)
+                    }.sheet(isPresented: $openNewPage){
+                        RateView(commentedTopic: "\(food)")
                     }
                 }
             }.padding(2)
-            
-            
         }
     }
+}
+
+struct RateView: View {
+    @Environment(\.dismiss) var dismiss
+    var commentedTopic: String?
     
-    struct ContentView_Previews: PreviewProvider {
-        static var previews: some View {
-            ContentView()
-                .previewInterfaceOrientation(.portrait)
-        }
+    var body: some View {
+        
+        VStack(alignment: .leading, spacing: 10){
+            
+            Text("Please add your comments about \(commentedTopic!) :")
+                .font(.title3)
+                .background(.orange)
+            
+            Spacer()
+            
+            Button(action:{
+                print("Clicked on Back")
+                dismiss()
+            }){
+                Text("Back to Home")
+                    .padding()
+                    .background(.gray)
+            }
+        }.padding(10)
+    }
+    
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+            .previewInterfaceOrientation(.portrait)
     }
 }
