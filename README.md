@@ -1,3 +1,3 @@
 # MeatballsRecipe
 
-This is a project for SwiftUI design practice, don not touch it! :P
+This is a project for SwiftUI design practice, do not touch it! :P
