@@ -54,10 +54,21 @@ struct ContentView: View {
                 Spacer()
                 
                 HStack(alignment: .center, spacing: 0){
-                    Text("Like").frame(width: geometry.size.width/2, height: 40, alignment: .center).background(.yellow)
-                    Text("Rate ").frame(width: geometry.size.width/2, height: 40, alignment: .center).background(.orange)
+                    
+                    Button(action:{
+                        print("Clicked on Like")
+                    }){
+                        Text("Like").frame(width: geometry.size.width/2, height: 40, alignment: .center).background(.yellow)
+                    }
+                    Button(action:{
+                        print("Clicked on Rate")
+                    }){
+                        Text("Rate ").frame(width: geometry.size.width/2, height: 40, alignment: .center).background(.orange)
+                    }
                 }
             }.padding(2)
+            
+            
         }
     }
     
