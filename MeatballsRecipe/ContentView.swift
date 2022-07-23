@@ -83,25 +83,46 @@ struct RateView: View {
     
     var body: some View {
         
-        VStack(alignment: .leading, spacing: 10){
+        NavigationView {
             
-            Text("Please add your comments about \(commentedTopic!) :")
-                .font(.title3)
-                .background(.orange)
-            
-            Spacer()
-            
-            Button(action:{
-                print("Clicked on Back")
-                dismiss()
-            }){
-                Text("Back to Home")
-                    .padding()
-                    .background(.gray)
-            }
-        }.padding(10)
+            VStack(alignment: .leading, spacing: 10){
+                
+                Text("Please add your comments about \(commentedTopic!) :")
+                    .font(.title3)
+                    .background(.orange)
+                
+                Spacer()
+                
+                HStack(spacing:0) {
+                    
+                    Button(action:{
+                        print("Clicked on Back")
+                        dismiss()
+                    }){
+                        Text("Back to Home")
+                            .padding()
+                            .background(.gray)
+                    }
+                    
+                    Spacer()
+                    
+                    NavigationLink(destination: CommentView()){
+                        Text("Go to Facebook")
+                    }
+                }
+                
+            }.padding(10).navigationBarTitle("Comment Page") //->.navigationBarTitle sayfa icinde bir yerde bulunmalidir. Burada VStack'a monte edildi.
+        }
     }
     
+}
+
+struct CommentView: View {
+    
+    var body: some View {
+        VStack() {
+            Text("Comment Here :").font(.title3).background(.green)
+        }}
 }
 
 struct ContentView_Previews: PreviewProvider {
