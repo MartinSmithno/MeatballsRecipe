@@ -106,7 +106,8 @@ struct RateView: View {
                     
                     Spacer()
                     
-                    NavigationLink(destination: CommentView()){
+                    NavigationLink(destination: CommentView(person:
+                                                                FaceBookAccount("George Nilson", "gr.nils@hotmail.com", "1546AF398PT"))){
                         Text("Go to Facebook")
                     }
                 }
@@ -119,10 +120,15 @@ struct RateView: View {
 
 struct CommentView: View {
     
+    var person = FaceBookAccount()
+    
     var body: some View {
         VStack() {
-            Text("Comment Here :").font(.title3).background(.green)
-        }}
+            Text("Comment Here \(person.name!):").font(.title3).background(.green)
+            Text("\(person.id!) has logget in").bold()
+            Text("\(person.email!) will be used on your comment").italic()
+        }.navigationBarTitle("Welcome to Facebook")
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {
