@@ -1,9 +1,18 @@
 import SwiftUI
 
+
+class SharedProperties: ObservableObject {
+    @Published var likeSymbol: String = "heart"
+    @Published var likeButtonText: String = "Like"
+    
+}
+
 struct ContentView: View {
     @State private var prepTime: Int = 10
     @State private var cookTime: Int = 20
     @State private var food: String = "Meatball"
+    
+    @ObservedObject var sharedProperties = SharedProperties()
     
     @State private var openNewPage: Bool = false
     
@@ -56,12 +65,23 @@ struct ContentView: View {
                 
                 Spacer()
                 
+                Image(systemName: self.sharedProperties.likeSymbol)
+                
                 HStack(alignment: .center, spacing: 0){
                     
                     Button(action:{
                         print("Clicked on Like")
+                        
+                        if self.sharedProperties.likeSymbol == "heart" {
+                            self.sharedProperties.likeSymbol = "heart.fill"
+                            self.sharedProperties.likeButtonText = "Dislike"
+                        } else {
+                            self.sharedProperties.likeSymbol = "heart"
+                            self.sharedProperties.likeButtonText = "Like"
+                        }
+
                     }){
-                        Text("Like").frame(width: geometry.size.width/2, height: 40, alignment: .center).background(.yellow)
+                        Text(self.sharedProperties.likeButtonText).frame(width: geometry.size.width/2, height: 40, alignment: .center).background(.yellow)
                     }
                     Button(action:{
                         print("Clicked on Rate")
@@ -69,7 +89,7 @@ struct ContentView: View {
                     }){
                         Text("Rate ").frame(width: geometry.size.width/2, height: 40, alignment: .center).background(.orange)
                     }.sheet(isPresented: $openNewPage){
-                        RateView(commentedTopic: "\(food)")
+                        RateView(likeSymbol: self.$sharedProperties.likeSymbol, likeButtonText: self.$sharedProperties.likeButtonText, commentedTopic: "\(food)")
                     }
                 }
             }.padding(2)
@@ -78,14 +98,19 @@ struct ContentView: View {
 }
 
 struct RateView: View {
+    
     @Environment(\.dismiss) var dismiss
+    
+    @Binding var likeSymbol: String
+    @Binding var likeButtonText: String
+
     var commentedTopic: String?
     
     var body: some View {
         
         NavigationView {
             
-            VStack(alignment: .leading, spacing: 10){
+            VStack(spacing: 10){
                 
                 Text("Please add your comments about \(commentedTopic!) :")
                     .font(.title3)
@@ -93,7 +118,11 @@ struct RateView: View {
                 
                 Spacer()
                 
-                HStack(spacing:0) {
+                Image(systemName: likeSymbol).resizable().frame(width: 60, height: 60, alignment: .center)
+                
+                Spacer()
+                
+                HStack() {
                     
                     Button(action:{
                         print("Clicked on Back")
@@ -102,6 +131,23 @@ struct RateView: View {
                         Text("Back to Home")
                             .padding()
                             .background(.gray)
+                    }
+                    
+                    Spacer()
+                    
+                    Button(action:{
+                        print("Clicked on Like")
+                        
+                        if likeSymbol == "heart" {
+                            likeSymbol = "heart.fill"
+                            likeButtonText = "Dislike"
+                        } else {
+                            likeSymbol = "heart"
+                            likeButtonText = "Like"
+                        }
+
+                    }){
+                        Text(likeButtonText).background(.yellow)
                     }
                     
                     Spacer()
