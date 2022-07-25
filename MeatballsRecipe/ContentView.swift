@@ -79,7 +79,7 @@ struct ContentView: View {
                             self.sharedProperties.likeSymbol = "heart"
                             self.sharedProperties.likeButtonText = "Like"
                         }
-
+                        
                     }){
                         Text(self.sharedProperties.likeButtonText).frame(width: geometry.size.width/2, height: 40, alignment: .center).background(.yellow)
                     }
@@ -103,7 +103,7 @@ struct RateView: View {
     
     @Binding var likeSymbol: String
     @Binding var likeButtonText: String
-
+    
     var commentedTopic: String?
     
     var body: some View {
@@ -145,7 +145,7 @@ struct RateView: View {
                             likeSymbol = "heart"
                             likeButtonText = "Like"
                         }
-
+                        
                     }){
                         Text(likeButtonText).background(.yellow)
                     }
@@ -188,7 +188,7 @@ struct SuccesfulVC: View {
     @State var commentOnFaceBook: String
     
     var body: some View {
-     
+        
         NavigationView {
             
             TabView{
@@ -214,10 +214,8 @@ struct SuccesfulVC: View {
                 
                 
             }.navigationTitle("").navigationBarTitleDisplayMode(.inline)
-            
-        
-    }
-        
+    
+        }
     }
 }
 
