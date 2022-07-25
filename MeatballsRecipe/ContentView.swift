@@ -188,12 +188,35 @@ struct SuccesfulVC: View {
     @State var commentOnFaceBook: String
     
     var body: some View {
+     
+        NavigationView {
+            
+            TabView{
+                VStack(alignment: .leading) {
+                    Text("Your idea has been shared succesfully!")
+                    Image(systemName: "hand.thumbsup.fill")
+                    Spacer()
+                    Text("\(commentOnFaceBook)")
+                }.tabItem{
+                    Image(systemName: "rectangle.leadinghalf.filled")
+                    Text("Lean to left")
+                }.tag(0)
+                
+                VStack(alignment: .trailing) {
+                    Text("Your idea has been shared succesfully!")
+                    Image(systemName: "hand.thumbsup.fill")
+                    Spacer()
+                    Text("\(commentOnFaceBook)")
+                }.tabItem{
+                    Image(systemName: "rectangle.trailinghalf.filled")
+                    Text("Lean to right")
+                }.tag(1)
+                
+                
+            }.navigationTitle("").navigationBarTitleDisplayMode(.inline)
+            
         
-        VStack() {
-            Text("Your idea has been shared succesfully!")
-            Spacer()
-            Text("\(commentOnFaceBook)")
-        }
+    }
         
     }
 }
