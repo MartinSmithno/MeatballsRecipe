@@ -121,13 +121,34 @@ struct RateView: View {
 struct CommentView: View {
     
     var person = FaceBookAccount()
+    @State private var comment: String = ""
     
     var body: some View {
-        VStack() {
-            Text("Comment Here \(person.name!):").font(.title3).background(.green)
+        VStack(spacing:20) {
+            Text("Comment Here \(person.name!):").font(.title3).foregroundColor(.green)
+            TextField("Write your comments",text: $comment).textFieldStyle(RoundedBorderTextFieldStyle()).padding(6)
             Text("\(person.id!) has logget in").bold()
             Text("\(person.email!) will be used on your comment").italic()
+            Spacer()
+            NavigationLink(destination: SuccesfulVC(commentOnFaceBook: self.comment)){
+                Text("Share us on your Faceboook")
+            }
         }.navigationBarTitle("Welcome to Facebook")
+    }
+}
+
+struct SuccesfulVC: View {
+    
+    @State var commentOnFaceBook: String
+    
+    var body: some View {
+        
+        VStack() {
+            Text("Your idea has been shared succesfully!")
+            Spacer()
+            Text("\(commentOnFaceBook)")
+        }
+        
     }
 }
 
